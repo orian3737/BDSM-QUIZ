@@ -63,9 +63,17 @@ function normalizeReadableReview(payload) {
   return lines.join('\n');
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function formatPayload(payload) {
-  const title = payload?.title || 'Pop Quiz response';
-  const readableText = normalizeReadableReview(payload);
+  const title = escapeHtml(payload?.title || 'Pop Quiz response');
+  const readableText = escapeHtml(normalizeReadableReview(payload));
   return `
     <h2>${title}</h2>
     <pre style="white-space: pre-wrap; font-family: monospace;">${readableText}</pre>
@@ -96,22 +104,27 @@ export async function handler(event) {
   try {
     const body = parseRequestBody(event.body);
     const payload = body.payload && typeof body.payload === 'object' ? body.payload : {};
-    const emailTarget = Array.isArray(body.emailTo)
-      ? body.emailTo
-      : body.emailTo
-        ? [body.emailTo]
-        : [recipient];
+    // Always send to the configured recipient; never trust an address from the browser.
+    const emailTarget = recipient.split(',').map((address) => address.trim()).filter(Boolean);
 
-    const result = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: sender,
       to: emailTarget,
       subject: payload.title ? `Pop Quiz: ${payload.title}` : 'New Pop Quiz response',
       html: formatPayload(payload)
     });
 
+    if (error) {
+      console.error('Resend rejected the email:', error);
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ ok: false, error: error.message || 'Resend rejected the email.' })
+      };
+    }
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ ok: true, id: result?.id || null })
+      body: JSON.stringify({ ok: true, id: data?.id || null })
     };
   } catch (error) {
     return {

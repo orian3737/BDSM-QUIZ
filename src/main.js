@@ -893,7 +893,7 @@ function bindEvents() {
         const response = await fetch('/.netlify/functions/send-quiz-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ payload, emailTo: 'ryan@example.com' })
+          body: JSON.stringify({ payload })
         });
 
         let responseBody = {};
