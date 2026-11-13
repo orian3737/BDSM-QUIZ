@@ -444,7 +444,7 @@ function renderSectionA() {
           const value = index + 1;
           const selected = selectedValue === value ? 'selected' : '';
           return `
-            <button class="answer-option ${selected}" type="button" data-value="${value}">
+            <button class="answer-option ${selected}" type="button" data-key="${question.id}" data-value="${value}">
               ${label}
             </button>
           `;
@@ -693,7 +693,9 @@ function onSelectAnswer(button) {
   const { group, key, value } = button.dataset;
   const section = currentSection();
   if (section.id === 'A') {
-    state.answers.sectionA[Number(key)] = Number(value);
+    const question = currentQuestion();
+    if (!question) return;
+    state.answers.sectionA[question.id] = Number(value);
     state.questionIndex += 1;
     saveProgress();
     if (state.questionIndex >= section.questions.length) {
