@@ -196,22 +196,98 @@ function getResultsTitle() {
   return `${first.shortName} with a ${second.shortName} streak`;
 }
 
+function scaleLabel(value) {
+  const index = Number(value);
+  if (!Number.isFinite(index) || index < 1 || index > 5) return 'Unanswered';
+  return scaleLabels[index - 1];
+}
+
+function formatAnswerList(list) {
+  if (!Array.isArray(list) || list.length === 0) return 'No answer selected.';
+  return list.join(', ');
+}
+
+function formatSectionAAnswers() {
+  const section = quizData.sections.find((entry) => entry.id === 'A');
+  return section.questions.map((question) => {
+    const answer = state.answers.sectionA[question.id];
+    return `Q: ${question.question}\nA: ${answer == null ? 'No answer selected.' : scaleLabel(answer)}`;
+  });
+}
+
+function formatSectionBAnswers() {
+  const section = quizData.sections.find((entry) => entry.id === 'B');
+  return section.groups.flatMap((group) =>
+    group.items.map((item) => {
+      const key = `${group.title}::${item}`;
+      const choice = state.answers.sectionB[key];
+      const selected = typeof choice === 'object' && choice ? choice.answer : choice;
+      const note = typeof choice === 'object' && choice ? choice.note : '';
+      return `Q: ${item}\nA: ${selected || 'No answer selected.'}${note ? `\nNote: ${note}` : ''}`;
+    })
+  );
+}
+
+function formatSectionCAnswers() {
+  const section = quizData.sections.find((entry) => entry.id === 'C');
+  return section.questions.map((question) => {
+    const answer = state.answers.sectionC[question.id];
+    const custom = state.answers.sectionC[`${question.id}Custom`];
+
+    if (question.type === 'open') {
+      return `Q: ${question.question}\nA: ${answer || 'No answer entered.'}`;
+    }
+
+    const selection = Array.isArray(answer) ? answer : answer ? [answer] : [];
+    const base = selection.length ? formatAnswerList(selection) : 'No answer selected.';
+    const extra = custom ? `\nCustom: ${custom}` : '';
+    return `Q: ${question.question}\nA: ${base}${extra}`;
+  });
+}
+
+function formatSectionDAnswers() {
+  const section = quizData.sections.find((entry) => entry.id === 'D');
+  const ratings = section.ratings.map((question) => {
+    const answer = state.answers.sectionD[question];
+    return `Q: ${question}\nA: ${answer == null ? 'No answer selected.' : `${answer} / 5 — ${scaleLabel(answer)}`}`;
+  });
+
+  const opens = section.open.map((question) => {
+    const answer = state.answers.sectionD[question];
+    return `Q: ${question}\nA: ${answer || 'No answer entered.'}`;
+  });
+
+  return [...ratings, ...opens];
+}
+
 function buildSubmissionPayload() {
-  return {
+  const payload = {
     submittedAt: new Date().toISOString(),
     title: getResultsTitle(),
     archetypeScores: Object.fromEntries(calculateArchetypeScores().map((item) => [item.code, item.score])),
-    sectionA: state.answers.sectionA,
-    sectionB: state.answers.sectionB,
-    sectionC: state.answers.sectionC,
-    sectionD: state.answers.sectionD,
-    contract: state.contract,
+    sections: [
+      { title: 'Section A — Know Thyself', answers: formatSectionAAnswers() },
+      { title: 'Section B — The Limits Worksheet', answers: formatSectionBAnswers() },
+      { title: 'Section C — Classroom Rules', answers: formatSectionCAnswers() },
+      { title: 'Section D — Grade the Instructor', answers: formatSectionDAnswers() },
+      { title: 'Comfort Contract / Notes', answers: [
+        `Safeword / signal: ${state.contract.safeword || 'No answer entered.'}`,
+        `How I want to be handled when overwhelmed: ${state.contract.overwhelmed || 'No answer entered.'}`,
+        `Anything else to add: ${state.contract.notes || 'No answer entered.'}`
+      ]}
+    ],
+    readableReview: formatAnswerReview(),
     developerMode: state.devMode
   };
+
+  return payload;
 }
 
 function formatAnswerReview() {
-  return escapeHtml(JSON.stringify(buildSubmissionPayload(), null, 2));
+  const payload = buildSubmissionPayload();
+  return payload.sections
+    .map((section) => `${section.title}\n${section.answers.map((entry) => `- ${entry}`).join('\n')}`)
+    .join('\n\n');
 }
 
 function randomChoice(options) {
@@ -569,7 +645,7 @@ function renderResults() {
 
         <div class="answer-review-panel">
           <h4>Answer review</h4>
-          <pre>${formatAnswerReview()}</pre>
+          <pre>${escapeHtml(formatAnswerReview())}</pre>
         </div>
 
         <div class="results-actions">
@@ -808,44 +884,48 @@ function bindEvents() {
   if (turnIn) {
     turnIn.addEventListener('click', async () => {
       const payload = buildSubmissionPayload();
-      const form = document.forms['pop-quiz'];
-      if (form) {
-        form.querySelector('[name="payload"]').value = JSON.stringify(payload);
-      }
 
       try {
-        const result = await fetch('/.netlify/functions/send-quiz-email', {
+        const response = await fetch('/.netlify/functions/send-quiz-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ payload, emailTo: 'ryan@example.com' })
         });
 
-        if (!result.ok) {
-          throw new Error(`Email API returned ${result.status}`);
+        let responseBody = {};
+        try {
+          responseBody = await response.json();
+        } catch {
+          // Ignore non-JSON responses; the server error will still be surfaced below.
         }
-      } catch (error) {
-        console.warn('Unable to send email immediately; falling back to form submission.', error);
-        if (form) {
-          form.requestSubmit();
-        }
-      }
 
-      window.alert('Paper received. The instructor will review your work.');
-      state.screen = 'intro';
-      state.consent = false;
-      state.sectionIndex = 0;
-      state.questionIndex = 0;
-      state.answers = { sectionA: {}, sectionB: {}, sectionC: {}, sectionD: {} };
-      state.contract = {
-        dos: [],
-        donts: [],
-        safeword: '',
-        overwhelmed: '',
-        notes: ''
-      };
-      localStorage.removeItem(STORAGE_KEY);
-      render();
-      bindEvents();
+        if (!response.ok) {
+          throw new Error(responseBody?.error || `Email API returned ${response.status}`);
+        }
+
+        window.alert('Paper received. The instructor will review your work.');
+        state.screen = 'intro';
+        state.consent = false;
+        state.sectionIndex = 0;
+        state.questionIndex = 0;
+        state.answers = { sectionA: {}, sectionB: {}, sectionC: {}, sectionD: {} };
+        state.contract = {
+          dos: [],
+          donts: [],
+          safeword: '',
+          overwhelmed: '',
+          notes: ''
+        };
+        localStorage.removeItem(STORAGE_KEY);
+        render();
+        bindEvents();
+        return;
+      } catch (error) {
+        console.error('Unable to send quiz email.', error);
+        window.alert(
+          'The email service is not responding correctly. Please make sure the Netlify Resend environment variables are set and the site has been redeployed.'
+        );
+      }
     });
   }
 
