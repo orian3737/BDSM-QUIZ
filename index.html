@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Private quiz for Danielle." />
+    <meta property="og:title" content="Pop Quiz" />
+    <meta property="og:description" content="Private quiz for Danielle." />
+    <meta property="og:type" content="website" />
+    <title>Pop Quiz</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <form name="pop-quiz" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="pop-quiz" />
+      <textarea name="payload"></textarea>
+      <input name="bot-field" />
+    </form>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+{
+  "instructor": "Kitten_Napper",
+  "title": "Pop Quiz",
+  "archetypes": [
+    { "code": "KIT", "name": "Collar Kitten", "shortName": "Kitten", "writeup": "Affectionate on your own terms. You want to belong to someone, to be cared for, played with, and claimed, but you keep the curiosity and independence that make a kitten a kitten. The collar means something to you." },
+    { "code": "HUN", "name": "Hunter", "shortName": "Hunter", "writeup": "You do the choosing. You watch, you test, and you let someone in slowly, and only the ones who earn it stay. A Dom who wants you has to prove he's worth the trust." },
+    { "code": "BRT", "name": "Brat", "shortName": "Brat", "writeup": "You push to see if he'll push back. Attitude is part of the fun, and you want a Dom who can keep up and win, with a grin." },
+    { "code": "SRV", "name": "Service Sub", "shortName": "Service", "writeup": "You show devotion by doing. Tasks, projects, and taking care of your Dom's needs feel like closeness to you, and being noticed for it matters." },
+    { "code": "MAS", "name": "Masochist", "shortName": "Masochist", "writeup": "For you, the sting is the point. Intensity from someone you trust takes you somewhere good, and the marks are a souvenir." },
+    { "code": "PRS", "name": "Praise Seeker", "shortName": "Good Girl", "writeup": "Praise is your fuel. You want to be seen, told you did well, and know your Dom is proud of you." },
+    { "code": "DEG", "name": "Degradee", "shortName": "Bad Girl", "writeup": "You like being put in your place. Being made to feel naughty, dirty, or humiliated, safely and by someone you trust, flips a switch." },
+    { "code": "ROP", "name": "Rope Bunny", "shortName": "Rope Bunny", "writeup": "Restraint sets you free. Rope, cuffs, and blindfolds take away the choices and let you drop into the moment." },
+    { "code": "PRY", "name": "Primal Prey", "shortName": "Prey", "writeup": "You want the chase. The struggle, being caught, and being pinned is the thrill. It's raw and physical." },
+    { "code": "EXH", "name": "Exhibitionist", "shortName": "Exhibitionist", "writeup": "You like to be seen. Being watched or shown off while you submit turns the volume up." },
+    { "code": "PRO", "name": "Protocol Sub", "shortName": "Protocol", "writeup": "Structure makes you feel held. Rules, rituals, titles, and consequences give the dynamic shape, and you like living inside it." }
+  ],
+  "profile": {
+    "favoriteColor": "purple",
+    "favoriteFoods": ["burgers", "pizza", "all things breakfast"],
+    "zodiacSign": "Taurus",
+    "ticklishSpots": "mostly shiver spots on the lower back and the back of the neck; hates belly-button touch",
+    "catPerson": "Kai is her baby boy",
+    "spiritAnimal": "cats and snakes",
+    "work": "construction, especially painting and flooring",
+    "county": "New London County",
+    "anime": ["Attack on Titan", "Death Note", "Future Diary", "Black Butler"],
+    "starWarsPreference": "Star Wars, General Grievous is her favorite",
+    "magic": "Magic: The Gathering; collector decks and binder with rainbows",
+    "ickMan": "Crying or being too overly emotional. She wants a man who can be steady and not make her feel like she chose a woman instead.",
+    "ickDom": "If a Dom loses his house, car, or job and can't keep control of his own life, it shuts her down fast.",
+    "domFailurePatterns": [
+      "Wanted a Dom who accepted her poly life and didn't pressure her to change it",
+      "Made promises, ignored her, and left her hanging with her necklace",
+      "Made her feel like a fan instead of a partner",
+      "Could not keep control of his own life or responsibilities"
+    ],
+    "relationshipNeeds": "Independent, patient, non-jealous partners; communication; respect for her work, poly life, and time; no sharing personal details too early; no giving out address, phone number, or leaving valuables behind without certainty."
+  },
+  "notes": {
+    "KIT": "Good kitty. Noted: collar fitting to be scheduled.",
+    "HUN": "You're grading me too, aren't you. Fair.",
+    "BRT": "Talking back in class? See me after.",
+    "SRV": "Excellent work ethic. Assignments incoming.",
+    "MAS": "Impact homework approved.",
+    "PRS": "Good girl. Exceptional work.",
+    "DEG": "Detention. You know what you did.",
+    "ROP": "Rope practice moved to the top of the syllabus.",
+    "PRY": "Head start: five seconds. Run.",
+    "EXH": "Show and tell will be graded.",
+    "PRO": "Class rules to be distributed. Memorize them."
+  },
+  "sections": [
+    {
+      "id": "A",
+      "title": "Know Thyself",
+      "questions": [
+        { "id": 5, "question": "I'm the one who decides who gets close to me.", "weights": { "HUN": 1 } },
+        { "id": 1, "question": "I'd happily wear a collar that shows who I belong to.", "weights": { "KIT": 1, "PRO": 0.5 } },
+        { "id": 9, "question": "Sometimes I disobey just to see what happens.", "weights": { "BRT": 1 } },
+        { "id": 13, "question": "Doing small tasks for my Dom makes me feel close to him.", "weights": { "SRV": 1 } },
+        { "id": 16, "question": "I enjoy the sting of impact and want more of it.", "weights": { "MAS": 1 } },
+        { "id": 19, "question": "Hearing \"good girl\" does something to me.", "weights": { "PRS": 1 } },
+        { "id": 25, "question": "Being tied up helps me let go.", "weights": { "ROP": 1 } },
+        { "id": 28, "question": "I'd enjoy being chased, caught, and pinned down.", "weights": { "PRY": 1 } },
+        { "id": 31, "question": "Being watched while I submit excites me.", "weights": { "EXH": 1 } },
+        { "id": 34, "question": "I like clear rules, even outside the bedroom.", "weights": { "PRO": 1 } },
+        { "id": 22, "question": "Being called degrading names in the moment turns me on.", "weights": { "DEG": 1 } },
+        { "id": 2, "question": "Being called a good kitty and getting my head scratched sounds perfect.", "weights": { "KIT": 1, "PRS": 0.5 } },
+        { "id": 6, "question": "I'd rather choose my Dom than be chosen.", "weights": { "HUN": 1 } },
+        { "id": 10, "question": "A little attitude makes the game more fun.", "weights": { "BRT": 1, "DEG": 0.3 } },
+        { "id": 14, "question": "I like having assignments and projects to complete.", "weights": { "SRV": 1, "PRO": 0.5 } },
+        { "id": 17, "question": "Pain feels good when it comes from someone I trust.", "weights": { "MAS": 1 } },
+        { "id": 20, "question": "I want detailed praise when I do well.", "weights": { "PRS": 1, "SRV": 0.3 } },
+        { "id": 26, "question": "I love not being able to move or see.", "weights": { "ROP": 1 } },
+        { "id": 29, "question": "I like play that feels wild and physical, not scripted.", "weights": { "PRY": 1, "BRT": 0.3 } },
+        { "id": 32, "question": "I'd enjoy being shown off at a play party.", "weights": { "EXH": 1 } },
+        { "id": 35, "question": "Rituals like good-morning messages, positions, and titles make me feel held.", "weights": { "PRO": 1, "KIT": 0.3 } },
+        { "id": 23, "question": "I like being made to feel a little naughty or humiliated.", "weights": { "DEG": 1, "EXH": 0.3 } },
+        { "id": 3, "question": "I'm playful, curious, and a little aloof until I decide to curl up with someone.", "weights": { "KIT": 1, "HUN": 0.5 } },
+        { "id": 7, "question": "I test a Dom slowly before I let him in.", "weights": { "HUN": 1, "BRT": 0.3 } },
+        { "id": 11, "question": "I want a Dom who can win when I push back.", "weights": { "BRT": 1, "PRY": 0.5 } },
+        { "id": 15, "question": "Taking care of my Dom's needs is satisfying in itself.", "weights": { "SRV": 1 } },
+        { "id": 18, "question": "I'm proud of my marks the next day.", "weights": { "MAS": 1, "EXH": 0.3 } },
+        { "id": 21, "question": "Knowing my Dom is proud of me matters more than the play itself.", "weights": { "PRS": 1 } },
+        { "id": 27, "question": "Blindfolds make everything more intense for me.", "weights": { "ROP": 0.7, "MAS": 0.3 } },
+        { "id": 30, "question": "Struggling against someone stronger is exciting.", "weights": { "PRY": 1, "ROP": 0.3 } },
+        { "id": 33, "question": "Being photographed during play appeals to me.", "weights": { "EXH": 1 } },
+        { "id": 36, "question": "Facing consequences when I break a rule feels right, not unfair.", "weights": { "PRO": 0.7, "BRT": 0.3 } },
+        { "id": 24, "question": "Sometimes I'd rather be put in my place than praised.", "weights": { "DEG": 1 } },
+        { "id": 4, "question": "Ears, a tail, or a bell during play sound fun to me.", "weights": { "KIT": 1 } },
+        { "id": 8, "question": "A Dom has to earn my submission over time.", "weights": { "HUN": 1, "PRO": 0.3 } },
+        { "id": 12, "question": "I'd rather be caught than simply obey.", "weights": { "BRT": 0.5, "PRY": 1 } }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "The Limits Worksheet",
+      "header": "A Yes here isn't permission. It just means we'll talk about it. A Maybe means 'go slow and ask me.' Hard limits are never up for negotiation.",
+      "groups": [
+        { "title": "Impact", "items": ["spanking (hand)", "paddle", "flogger", "crop", "belt", "leaving marks", "visible marks (above clothing)"] },
+        { "title": "Sensation", "items": ["nipple clamps", "wax play", "ice and temperature play", "tickling", "teasing her shiver spots (lower back, back of neck)", "biting", "hair pulling", "scratching"] },
+        { "title": "Restraint and senses", "items": ["rope bondage", "cuffs", "blindfold", "gag", "being left restrained for a while"] },
+        { "title": "Power and words", "items": ["praise and \"good girl\"", "degrading names", "verbal humiliation", "titles (Daddy / Sir)", "orgasm control or denial", "edging", "breeding talk and fantasy", "tasks and assignments", "rules and punishments"] },
+        { "title": "Real-world safety", "items": ["actual pregnancy risk", "barrier protection with a new partner", "sharing recent STI test results before play"] },
+        { "title": "Kitten and primal", "items": ["collar", "leash", "ears and tail", "being petted and fed by hand", "primal chase and wrestling"] },
+        { "title": "Being seen", "items": ["being watched by others", "play at a party or dungeon", "being photographed", "being filmed"] },
+        { "title": "Group play", "items": ["playing with others present"] },
+        { "title": "Edge play", "items": ["fear play, knife play, or CNC (marked \"discuss in person only; not something to start with\")"] }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "Classroom Rules",
+      "questions": [
+        { "id": "domTitle", "type": "multi", "question": "What do you want to call your Dom?", "options": ["Daddy", "Sir", "Master", "his name", "something else"], "writeIn": true },
+        { "id": "subTitle", "type": "multi", "question": "What do you want to be called?", "options": ["Kitten", "good girl", "pet name chosen together", "your name", "something else"], "writeIn": true },
+        { "id": "dynamicOn", "type": "multi", "question": "When should the dynamic be 'on'?", "options": ["Only during scenes", "Scenes plus flirty texting", "Light rules day to day", "Mostly always on, by agreement", "24/7 (24 hours a day, 7 days a week)"] },
+        { "id": "ruleBreaking", "type": "multi", "question": "How should rule-breaking be handled?", "options": ["Real punishments", "Funishments", "A mix", "No punishments, just redirection"] },
+        { "id": "safewords", "type": "multi", "question": "Safewords:", "options": ["Traffic lights (green / yellow / red)", "My own word", "A nonverbal signal too", "Something else"], "writeIn": true },
+        { "id": "checkins", "type": "multi", "question": "How often do you want check-ins?", "options": ["Daily good-morning or good-night", "A few times a week", "During and after scenes only", "24/7", "Something else"], "writeIn": true },
+        { "id": "aftercare", "type": "multi", "question": "Aftercare you like:", "options": ["Cuddling", "Blanket", "Water and snacks", "Praise and reassurance", "Quiet time", "Talking it through", "Check-in the next day", "Space to myself", "Something else"], "writeIn": true },
+        { "id": "subDrop", "type": "open", "question": "Have you dealt with sub drop, and what helps?" },
+        { "id": "overwhelmed", "type": "open", "question": "How will I know you're overwhelmed even if you don't safeword?" },
+        { "id": "tellMe", "type": "multi", "question": "Best way for you to tell me what you want:", "options": ["In person", "Text", "Written list", "In a quiz like this one", "Something else"], "writeIn": true }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Grade the Instructor",
+      "header": "You're the hunter. Now you grade me.",
+      "ratings": [
+        "Consistency: he shows up and doesn't disappear",
+        "Follow-through: he does what he says",
+        "Communication and check-ins",
+        "Patience: lets things build slowly",
+        "Aftercare",
+        "Respect for my other relationships",
+        "Creativity and planning scenes",
+        "Intensity",
+        "Sense of humor",
+        "Nerd compatibility (anime, games, Magic)"
+      ],
+      "open": [
+        "What would earn the instructor extra credit?",
+        "One thing you want me to never forget about you:"
+      ]
+    }
+  ]
+}
