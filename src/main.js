@@ -260,12 +260,8 @@ function formatSectionDAnswers() {
   return [...ratings, ...opens];
 }
 
-function buildSubmissionPayload() {
-  const payload = {
-    submittedAt: new Date().toISOString(),
-    title: getResultsTitle(),
-    archetypeScores: Object.fromEntries(calculateArchetypeScores().map((item) => [item.code, item.score])),
-    sections: [
+function buildAnswerSections() {
+  return [
       { title: 'Section A — Know Thyself', answers: formatSectionAAnswers() },
       { title: 'Section B — The Limits Worksheet', answers: formatSectionBAnswers() },
       { title: 'Section C — Classroom Rules', answers: formatSectionCAnswers() },
@@ -275,17 +271,23 @@ function buildSubmissionPayload() {
         `How I want to be handled when overwhelmed: ${state.contract.overwhelmed || 'No answer entered.'}`,
         `Anything else to add: ${state.contract.notes || 'No answer entered.'}`
       ]}
-    ],
-    readableReview: formatAnswerReview(),
-    developerMode: state.devMode
-  };
-
-  return payload;
+  ];
 }
 
-function formatAnswerReview() {
-  const payload = buildSubmissionPayload();
-  return payload.sections
+function buildSubmissionPayload() {
+  const sections = buildAnswerSections();
+  return {
+    submittedAt: new Date().toISOString(),
+    title: getResultsTitle(),
+    archetypeScores: Object.fromEntries(calculateArchetypeScores().map((item) => [item.code, item.score])),
+    sections,
+    readableReview: formatAnswerReview(sections),
+    developerMode: state.devMode
+  };
+}
+
+function formatAnswerReview(sections = buildAnswerSections()) {
+  return sections
     .map((section) => `${section.title}\n${section.answers.map((entry) => `- ${entry}`).join('\n')}`)
     .join('\n\n');
 }
